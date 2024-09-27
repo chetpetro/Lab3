@@ -68,11 +68,15 @@ public class Main {
     private static String promptForCountry(Translator translator) {
         List<String> countries = translator.getCountries();
 
-        countries.sort(String.CASE_INSENSITIVE_ORDER);
+        List<String> countriesSorted = new ArrayList<>();
         for (String country : countries) {
             CountryCodeConverter converter = new CountryCodeConverter();
             String countryName = converter.fromCountryCode(country);
-            System.out.println(countryName);
+            countriesSorted.add(countryName);
+        }
+        Collections.sort(countriesSorted);
+        for (String country : countriesSorted) {
+            System.out.println(country);
         }
 
         System.out.println("select a country from above:");
