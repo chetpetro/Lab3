@@ -1,5 +1,7 @@
 package org.translation;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -86,9 +88,22 @@ public class Main {
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForLanguage(Translator translator, String country) {
 
-        // TODO Task: replace the line below so that we sort the languages alphabetically and print them out; one per line
-        // TODO Task: convert the language codes to the actual language names before sorting
-        System.out.println(translator.getCountryLanguages(country));
+        LanguageCodeConverter languageCodeConverter = new LanguageCodeConverter();
+        List<String> languageCodes = translator.getCountryLanguages(country);
+
+        List<String> languageNames = new ArrayList<>();
+        for (String code : languageCodes) {
+            String languageName = languageCodeConverter.fromLanguageCode(code);
+            if (languageName != null) {
+                languageNames.add(languageName);
+            }
+        }
+
+        Collections.sort(languageNames);
+
+        for (String language : languageNames) {
+            System.out.println(language);
+        }
 
         System.out.println("select a language from above:");
 
